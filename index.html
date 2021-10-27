@@ -17,13 +17,18 @@
             v-bind:placeholder="placeholderString"
             v-bind:value="inputValue"
             v-on:input="inputChangeHandler"
-            v-on:keypress.=""
+            v-on:keypress.enter="addNewNote"
           />
         </div>
         <button class="btn" v-on:click="addNewNote">Add</button>
         <hr />
         <ul class="list">
-          <li class="list-item" v-for="myNote of notes">{{myNote}}</li>
+          <li class="list-item" v-for="(myNote, index) of notes">
+            ({{index}}) {{myNote}}
+            <button class="btn danger" v-on:click="deleteNode(index, $event)">
+              delete
+            </button>
+          </li>
         </ul>
       </div>
     </div>
