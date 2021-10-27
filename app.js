@@ -1,24 +1,28 @@
 const App = {
   data() {
     return {
-      placeholderString: "Введите название заметки",
-      title: "Список заметок",
+      placeholderString: "Enter new note",
+      title: "Notes list",
       inputValue: "",
-      notes: ["test note 1", "test note 2"],
+      notes: [],
     };
   },
   methods: {
-    inputChangeHandler(event) {
-      this.inputValue = event.target.value;
-    },
     addNewNote() {
-      this.notes.push(this.inputValue);
-      this.inputValue = "";
+      if (this.inputValue !== "") {
+        this.notes.push(this.inputValue);
+        this.inputValue = "";
+      }
+    },
+    toUpperCase(item) {
+      return item.toUpperCase();
     },
     deleteNode(index) {
       this.notes.splice(index, 1);
     },
   },
+  computed: {},
+  watch: {},
 };
 
 Vue.createApp(App).mount("#app");

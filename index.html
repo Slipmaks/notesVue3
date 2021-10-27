@@ -14,22 +14,34 @@
         <div class="form-control">
           <input
             type="text"
-            v-bind:placeholder="placeholderString"
-            v-bind:value="inputValue"
-            v-on:input="inputChangeHandler"
-            v-on:keypress.enter="addNewNote"
+            :placeholder="placeholderString"
+            v-model="inputValue"
+            @keypress.enter="addNewNote"
           />
         </div>
-        <button class="btn" v-on:click="addNewNote">Add</button>
+        <button class="btn" @click="addNewNote">Add</button>
         <hr />
-        <ul class="list">
-          <li class="list-item" v-for="(myNote, index) of notes">
-            ({{index}}) {{myNote}}
-            <button class="btn danger" v-on:click="deleteNode(index, $event)">
+        <ul class="list" v-if="notes.length !== 0">
+          <li class="list-item" v-for="(note, index) of notes">
+            <!-- <span :class="note.length > 5 ? 'primary' : 'bold'"
+              >({{index}}) {{toUpperCase(note)}}</span
+            > -->
+            <!-- <span :class="{' primary': true, 'bold': note.length > 5 }">
+              ({{index}}) {{toUpperCase(note)}}
+            </span> -->
+            <span :class=" ['bold', {'primary': note.length > 5}] ">
+              {{index + 1}}. {{toUpperCase(note)}}
+            </span>
+            <button class="btn danger" @click="deleteNode(index, $event)">
               delete
             </button>
           </li>
+          <hr />
+          <li><strong>List count: {{notes.length}}</strong></li>
         </ul>
+        <div v-if="notes.length === 0 ">
+          <h2>List empty. Add new note</h2>
+        </div>
       </div>
     </div>
 
